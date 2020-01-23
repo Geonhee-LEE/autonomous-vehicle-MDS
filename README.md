@@ -31,8 +31,12 @@
 
 ## ROSBAG play
 
-``rosbag play -($rosbag name).bag ``
+``rosbag play -($rosbag name).bag --clock --topic /velodyne_points /imu/data ``
 
+## LEGO-LOAM
+``roslaunch lego_loam run.launch ``
+
+실시간 확인시 `use_sim_time` 값 false로 변경
 
 ## Protocol
 

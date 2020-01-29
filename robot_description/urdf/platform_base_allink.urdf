@@ -1,0 +1,320 @@
+<robot
+  name="platform_base_allink">
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-1.9248E-17 -0.017346 0.0011737"
+        rpy="0 0 0" />
+      <mass
+        value="437.24" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.1415" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <link
+    name="base_footprint">
+    <inertial>
+      <origin
+        xyz="5.4448E-18 0 -1.721E-14"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.1415" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/base_footprint.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/base_footprint.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="base_foot_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 -0.274"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="base_footprint" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="GPS_link">
+    <inertial>
+      <origin
+        xyz="4.1359E-19 -1.1102E-16 2.7756E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.1415" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/GPS_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/GPS_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="GPS_joint"
+    type="fixed">
+    <origin
+      xyz="0 -0.195 0.835"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="GPS_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="IMU_link">
+    <inertial>
+      <origin
+        xyz="4.0691E-19 -1.1102E-16 2.7756E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.1415" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/IMU_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/IMU_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="IMU_joint"
+    type="fixed">
+    <origin
+      xyz="0 -0.195 0.695"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="IMU_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="laser_link">
+    <inertial>
+      <origin
+        xyz="1.1419E-18 0 4.3368E-18"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.1415" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/laser_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/laser_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="laser_joint"
+    type="fixed">
+    <origin
+      xyz="0 0 0.695"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="laser_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+  <link
+    name="camera_link">
+    <inertial>
+      <origin
+        xyz="3.7796E-19 -1.1102E-16 -5.5511E-17"
+        rpy="0 0 0" />
+      <mass
+        value="0.001" />
+      <inertia
+        ixx="0"
+        ixy="0"
+        ixz="0"
+        iyy="0"
+        iyz="0"
+        izz="0" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 3.1415" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/camera_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.79216 0.81961 0.93333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://robot_description/meshes/camera_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0 0.42 0.545"
+      rpy="0 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 0 0" />
+  </joint>
+</robot>

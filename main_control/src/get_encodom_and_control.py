@@ -161,4 +161,3 @@ if __name__ == '__main__':
         #print(ENC, STEER)
         pub_encoder.publish(ENC)
         pub_steer.publish(STEER)
-        pub_steer

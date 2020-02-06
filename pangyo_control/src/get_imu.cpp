@@ -318,9 +318,9 @@ int main(int argc, char **argv)
 				if(isStart == true)
 				{
 					IMU_pub.pub_imu_raw.publish(imu);
-					IMU_pub.pub_yaw.publish(yaw_imu);
-					IMU_pub.pub_yaw_value.publish(yaw_value);
-          IMU_pub.pub_yaw_degree.publish(yaw_degree);
+					// IMU_pub.pub_yaw.publish(yaw_imu);
+					// IMU_pub.pub_yaw_value.publish(yaw_value);
+        //   IMU_pub.pub_yaw_degree.publish(yaw_degree);
 					//IMU_pub.pub_quat(yaw_val);
 				}
 			}

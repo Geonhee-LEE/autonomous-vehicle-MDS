@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<launch>
+
+    <arg name="rviz_file" default="$(find stauto_sensor)/rviz/sensor.rviz"/>
+    <!-- Getting IMU data-->
+    <node pkg="stauto_sensor" type="enc_odom.py" name="enc_odom" output="screen"> </node>
+
+    <arg name="model" default="$(find robot_description)/urdf/platform_base_allink.urdf"/>
+    <arg name="gui" default="false" />
+
+    <param name="robot_description" command="$(find xacro)/xacro --inorder $(arg model)" />
+    <param name="use_gui" value="$(arg gui)"/>
+
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
+
+    <!-- TF setting-->
+    <node name="link1_broadcaster" pkg="tf" type="static_transform_publisher" args="0 0 0 0 0 0 world map 100" />
+    <node name="link2_broadcaster" pkg="tf" type="static_transform_publisher" args="1 0 0 0 0 0 world imu_link 100"/>
+
+    <!-- RVIZ -->
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_file)" /> <!--args="-d $(find stauto_ws/src/stauto_sensor)/rviz/sensor1.rivz"/>-->
+
+</launch>

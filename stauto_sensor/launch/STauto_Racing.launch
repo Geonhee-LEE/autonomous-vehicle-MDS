@@ -33,6 +33,8 @@
         <arg name="time_out"   value="$(arg time_out)" />
     </include>
 
+    <include file="$(find pointcloud_to_laserscan)/launch/sample_node.launch">
+    </include>
 
     <!-- ************ -->
     <!-- Localization -->
@@ -41,6 +43,10 @@
     <node name="map_server" pkg="map_server" type="map_server" args="$(find stauto_sensor)/map/map.yaml">
         <!-- <remap from="map" to="map_amcl"/> -->
     </node>
+
+    <!-- for odom only -->
+    <!-- <node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="0 0 0 1.4 0 0 /map    /odom 10" /> -->
+
     <!-- Map server (for nav)-->
     <!-- <node name="map_server_nav" pkg="map_server" type="map_server" args="$(find hypharos_minicar)/map/map_nav.yaml"/> -->
 

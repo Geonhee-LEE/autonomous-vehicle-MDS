@@ -14,7 +14,7 @@ import os
 import sys
 
 import math
-port = "/dev/ttyACM0"
+port = "/dev/ttyACM1"
 gps_data_bef = ""
 
 
@@ -67,12 +67,13 @@ def cb_imu(data):
 
 
 
-def do_work(lat,lon):
+def do_work(lat,lon, alt):
 
     gpsmsg.header.stamp = rospy.Time.now()
     gpsmsg.header.frame_id = "GPS_link"
     gpsmsg.latitude=lat
     gpsmsg.longitude=lon
+    gpsmsg.altitude = alt
     gpsmsg. position_covariance_type=0
     gps_pub.publish(gpsmsg)
     print(gpsmsg)
@@ -142,7 +143,7 @@ if __name__ == '__main__':
     Line = 0.0
 
 
-    gps_pub=rospy.Publisher('gps_data', NavSatFix, queue_size=1)
+    gps_pub=rospy.Publisher('gps/fix', NavSatFix, queue_size=1)
     gpsmsg=NavSatFix()
 
     rospy.loginfo("initialised")
@@ -173,8 +174,9 @@ if __name__ == '__main__':
 
                 lat = round(float(data[2]),5)
                 lon = round(float(data[4]),5)
+                alt = round(float(data[9]),5)
 
-                lat_str = str(data[2]); lon_str = str(data[4])
+                lat_str = str(data[2]); lon_str = str(data[4]); alt_str = str(data[9])
 
                 if(len(lat_str)==12):
                     deg_lat = int(float(lat_str))/100
@@ -194,10 +196,10 @@ if __name__ == '__main__':
                 print ("Fix Type : %s  North : %.7f  East : %.7f \r"% (fix_type[data[6]],lat_degree,lon_degree))
 
 
-                nclient.setPosition(lat,lon)
+                nclient.setPosition(lat,lon,alt)
                 #if(isReady==False): print(Line)
                 if (fix_type[data[6]] >=2):
-                    do_work(lat_degree,lon_degree)
+                    do_work(lat_degree,lon_degree, alt)
 
         except:
             print ("Missed" ,"\r")

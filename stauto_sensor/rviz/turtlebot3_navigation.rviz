@@ -7,6 +7,8 @@ Panels:
         - /Global Options1
         - /TF1/Frames1
         - /TF1/Tree1
+        - /LaserScan1
+        - /Planner Plan1
         - /Global Map1/Costmap1
         - /Global Map1/Planner1
         - /Local Map1
@@ -32,7 +34,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: LaserScan
+    SyncSource: ""
 Toolbars:
   toolButtonStyle: 2
 Visualization Manager:
@@ -111,42 +113,13 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        GPS_link:
-          Value: true
-        base_foot_link:
-          Value: true
-        base_footprint:
-          Value: true
-        base_link:
-          Value: true
-        camera_link:
-          Value: true
-        imu_link:
-          Value: true
-        odom:
-          Value: true
-        velodyne:
-          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
       Show Axes: true
       Show Names: false
       Tree:
-        base_footprint:
-          base_link:
-            GPS_link:
-              {}
-            base_foot_link:
-              {}
-            camera_link:
-              {}
-            imu_link:
-              {}
-            velodyne:
-              {}
-        odom:
-          {}
+        {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -172,9 +145,9 @@ Visualization Manager:
       Queue Size: 10
       Selectable: true
       Size (Pixels): 3
-      Size (m): 0.0300000012
+      Size (m): 0.100000001
       Style: Flat Squares
-      Topic: /scan
+      Topic: /to_scan
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: true
@@ -204,7 +177,7 @@ Visualization Manager:
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 0; 0; 0
+      Color: 255; 0; 0
       Enabled: true
       Head Diameter: 0.300000012
       Head Length: 0.200000003
@@ -221,7 +194,7 @@ Visualization Manager:
       Radius: 0.0299999993
       Shaft Diameter: 0.100000001
       Shaft Length: 0.100000001
-      Topic: /move_base/NavfnROS/plan
+      Topic: /odompath
       Unreliable: false
       Value: true
     - Class: rviz/Group
@@ -341,7 +314,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: odom
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -357,7 +330,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -1.55579603
+      Angle: -1.67079496
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
@@ -367,11 +340,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 37.3377037
+      Scale: 2.8625505
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 4.6302371
-      Y: -10.01791
+      X: 5.1127696
+      Y: 48.0898247
     Saved: ~
 Window Geometry:
   Displays:

@@ -29,20 +29,10 @@
         <param name="self_diagnose" value="false"/>
     </node> -->
 
-    <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
         <rosparam command="load" file="$(find stauto_sensor)/launch/params/minicar_imu_ekf_params.yaml" />
         <remap from="/odometry/filtered" to="/odom" />
-    </node> -->
+    </node>
 
-    <!-- ODOMETRY -->
-    <group if="$(arg use_imu)">
-        <!-- base control -->
-        <node pkg="stauto_sensor" type="enc_odom.py" name="enc_odom" output="screen"> </node>
-        <!-- Robot_Localization -->
-        <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
-            <rosparam command="load" file="$(find hypharos_minicar)/launch/params/minicar_imu_ekf_params.yaml" />
-            <remap from="/odometry/filtered" to="/odom" />
-        </node> -->
-    </group>
 
 </launch>

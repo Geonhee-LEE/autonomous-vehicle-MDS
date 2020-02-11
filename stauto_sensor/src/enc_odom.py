@@ -18,7 +18,7 @@ def steer_callback(data):
     global steer
 
     steer=data.data
-    steer += 1.7
+    steer += 1.73239433765
 
 def calculation(steer,dt):
     global curl_encoder, last_encoder
@@ -68,8 +68,8 @@ def calculation(steer,dt):
 
     if(steer < 0.):
         try:
-            r = 1.03*math.tan((pi/2)+steer)
-            vth = speed/r
+            r = 1.03/math.tan(steer)
+            vth = speed* 0.5454545454/r
 
             return vx, vy, vth
         except ZeroDivisionError:
@@ -80,8 +80,8 @@ def calculation(steer,dt):
 
     elif(steer > 0.):
         try:
-            r = -1.03*math.tan((pi/2)-steer)
-            vth = speed/r
+            r = -1.03/math.tan(steer)
+            vth = speed* 0.72/r
             # print(r)
             return vx, vy, vth
         except ZeroDivisionError:
@@ -153,13 +153,13 @@ if __name__ == '__main__':
         odom_quat = tf.transformations.quaternion_from_euler(0, 0, th)
 
         # first, we'll publish the transform over tf
-        odom_broadcaster.sendTransform(
-            (x, y, 0.),
-            odom_quat,
-            current_time,
-            "base_footprint",
-            "odom"
-        )
+        # odom_broadcaster.sendTransform(
+        #     (x, y, 0.),
+        #     odom_quat,
+        #     current_time,
+        #     "base_footprint",
+        #     "odom"
+        # )
 
         # next, we'll publish the odometry message over ROS
         odom = Odometry()

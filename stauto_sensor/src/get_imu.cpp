@@ -265,7 +265,7 @@ int main(int argc, char **argv)
 				if (yaw <= -M_PI)
 					yaw = yaw + 2 * M_PI;
 
-        yaw_degree= yaw;
+        		yaw_degree= yaw;
 
 				//double tau = 1.018;
 				double tau = 1.000;
@@ -305,7 +305,7 @@ int main(int argc, char **argv)
 				std_msgs::Float32 yaw_value;
 				yaw_value.data = -theta;
 
-        std_msgs::Float32 yaw_degree;
+        		std_msgs::Float32 yaw_degree;
 				yaw_degree.data = yaw;
 
 				yaw_val.setRPY(0,0,-theta);
@@ -320,9 +320,9 @@ int main(int argc, char **argv)
 					IMU_pub.pub_imu_raw.publish(imu);
 					IMU_pub.pub_yaw.publish(yaw_imu);
 					IMU_pub.pub_yaw_value.publish(yaw_value);
-          IMU_pub.pub_yaw_degree.publish(yaw_degree);
+          			IMU_pub.pub_yaw_degree.publish(yaw_degree);
 					//IMU_pub.pub_quat(yaw_val);
-          ROS_INFO("imu: ", imu);
+          			ROS_INFO("imu: ", imu);
 				}
 			}
 		};

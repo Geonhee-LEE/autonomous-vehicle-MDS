@@ -99,10 +99,10 @@ def calculation(steer,dt):
 if __name__ == '__main__':
     rospy.init_node('odometry_publisher')
 
-    rospy.Subscriber("ENCODER_DATA",Int32,enc_callback)
-    rospy.Subscriber("STEER_DATA",Float32,steer_callback)
+    rospy.Subscriber("encoder_data",Int32,enc_callback)
+    rospy.Subscriber("steer_data",Float32,steer_callback)
 
-    odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
+    odom_pub = rospy.Publisher("encoder_odom", Odometry, queue_size=50)
     odom_broadcaster = tf.TransformBroadcaster()
 
 

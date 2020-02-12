@@ -44,7 +44,7 @@ def Gear_Conv(gear_b):
     gear = 0
     gear = (bytearray(gear_b))
     
-    print('gear : ' + gear)
+    print('gear : ' , gear)
     return gear[0]
 
 def Speed_Conv(speed0_b,speed1_b):
@@ -54,7 +54,7 @@ def Speed_Conv(speed0_b,speed1_b):
 
     speed = speed0[0] + 256*speed1[0]  
 
-    print('speed : ' + speed)
+    print('speed : ' , speed)
     return speed
 
 def Steer_Conv(steer0_b,steer1_b):
@@ -69,7 +69,7 @@ def Steer_Conv(steer0_b,steer1_b):
     
     print(steer) # 1 is 0.014 degree, so 71 is 1 degree
     
-    print('steer : ' + steer)
+    print('steer : ' , steer)
     return steer
 
 def Brake_Conv(brake_b):
@@ -90,7 +90,7 @@ def Encoder_Conv(enc0_b,enc1_b,enc2_b,enc3_b):
     else:
         encoder = -2**32 +(encoder0 + (2**8)*encoder1[0] + (2**16)*encoder2[0] + (2**24)*(encoder3[0] & 0x7fffffff))
     
-    print('encoder : ' + encoder)
+    print('encoder : ' , encoder)
     return encoder
 
 

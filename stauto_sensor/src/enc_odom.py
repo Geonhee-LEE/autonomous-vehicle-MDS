@@ -22,18 +22,17 @@ def EncCallback(data):
 def SteerCallback(data):
     global steer
 
-    steer = data.data
-    steer += 1.73239433765
-'''
-def SpeedCallback(data):
-    global speed
+    steer= (data.data-150) * 0.014 #150 for align
 
-    speed = data.data
-'''
+def SpeedCallback(data):
+    global erp_speed
+
+    erp_speed = data.data/72
+
 
 ########### odometry calculation ###############
 
-def calculation(steer,dt):
+def calculation(steer,dt,erp_speed_):
     global cur_encoder, prev_encoder
     
     if(cur_encoder == prev_encoder):
@@ -64,7 +63,7 @@ def calculation(steer,dt):
         except ZeroDivisionError:
             speed=0
 
-
+    speed = erp_speed_
     vx = speed
     vy = 0
     steer = steer*(pi/180)
@@ -73,7 +72,7 @@ def calculation(steer,dt):
     if(steer < 0.):
         try:
             r = 1.03/math.tan(steer)
-            vth = speed* 0.5454545454/r
+            vth = speed* 0.6/r #0.6 parameter
 
             return vx, vy, vth
         except ZeroDivisionError:
@@ -84,8 +83,8 @@ def calculation(steer,dt):
 
     elif(steer > 0.):
         try:
-            r = -1.03/math.tan(steer)
-            vth = speed* 0.72/r
+            r = 1.03/math.tan(steer)
+            vth = speed* 0.72/r #0.72 parameter
             # print(r)
             return vx, vy, vth
         except ZeroDivisionError:
@@ -103,14 +102,14 @@ def calculation(steer,dt):
 if __name__ == '__main__':
     rospy.init_node('odometry_publisher')
 
-    rospy.Subscriber("ERP42_encoder",Float64,EncCallback) # 4 bytes
+    rospy.Subscriber("ERP42_encoder",Float32,EncCallback) # 4 bytes
     rospy.Subscriber("ERP42_steer",Float32,SteerCallback) # 2 bytes
     rospy.Subscriber("ERP42_speed",Float32,SpeedCallback) # 2 bytes
 
-    odom_pub = rospy.Publisher("encoder_odom", Odometry, queue_size=50)
+    odom_pub = rospy.Publisher("odom", Odometry, queue_size=50)
     odom_broadcaster = tf.TransformBroadcaster()
 
-
+    erp_speed = 0
     cur_encoder=0
     steer=0
     prev_encoder=0
@@ -145,7 +144,7 @@ if __name__ == '__main__':
 
         dt = (current_time - last_time).to_sec() + (current_time - last_time).to_nsec()*1e-9
         if dt>0:
-            vx, vy, vth = calculation(steer,dt)
+            vx, vy, vth = calculation(steer,dt,erp_speed)
         delta_x = (vx * cos(th) - vy * sin(th)) * dt
         delta_y = (vx * sin(th) + vy * cos(th)) * dt
         delta_th = vth * dt
@@ -153,18 +152,18 @@ if __name__ == '__main__':
         x += delta_x
         y += delta_y
         th += delta_th
-        #print(th)
+
         # since all odometry is 6DOF we'll need a quaternion created from yaw
         odom_quat = tf.transformations.quaternion_from_euler(0, 0, th)
 
         # first, we'll publish the transform over tf
-        # odom_broadcaster.sendTransform(
-        #     (x, y, 0.),
-        #     odom_quat,
-        #     current_time,
-        #     "base_footprint",
-        #     "odom"
-        # )
+        odom_broadcaster.sendTransform(
+            (x, y, 0.),
+            odom_quat,
+            current_time,
+            "base_footprint",
+            "odom"
+        )
 
         # next, we'll publish the odometry message over ROS
         odom = Odometry()

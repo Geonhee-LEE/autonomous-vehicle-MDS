@@ -8,11 +8,11 @@ import tf
 from nav_msgs.msg import Odometry
 from std_msgs.msg import Int32, Float32, Float64, Header
 from geometry_msgs.msg import Point, Pose, Quaternion, Twist, Vector3
-
+ 
 cur_encoder = 0     # Encoder counting
 prev_encoder = 0
 steer = 0           # -2000 ~ 2000 (actual steering angle * 71)
-speed = 0           # 0~200(actual speed(KPH)*10) 
+speed = 0           # 0~200(actual speed(KPH)*10)
 
 def EncCallback(data):
     global cur_encoder, current_time
@@ -23,13 +23,13 @@ def SteerCallback(data):
     global steer
 
     steer = data.data
-    steer += 1.73239433765
-'''
+
+
 def SpeedCallback(data):
     global speed
 
     speed = data.data
-'''
+
 
 ########### odometry calculation ###############
 
@@ -67,7 +67,7 @@ def calculation(steer,dt):
 
     vx = speed
     vy = 0
-    steer = steer*(pi/180)
+    steer = (steer/71)*(pi/180)
 
 
     if(steer < 0.):
@@ -111,25 +111,20 @@ if __name__ == '__main__':
     odom_broadcaster = tf.TransformBroadcaster()
 
 
-    cur_encoder=0
-    steer=0
-    prev_encoder=0
-
     x = 0.0
     y = 0.0
-    th = 0.0
+    th = 0.0    # yaw
 
-    vx = 0
-    vy = 0
-    vth = 0
-
-    dt = 0
-
+    vx = 0      # x direction velocity
+    vy = 0      # y direction velocity
+    vth = 0     # angular velocity
+    
     prev_encoder = cur_encoder
 
+    dt = 0      # the time difference
 
-    current_time = rospy.Time.now()
-    last_time = rospy.Time.now()
+    current_time = rospy.Time.now() 
+    prev_time = rospy.Time.now()
 
     r = rospy.Rate(10)
 
@@ -139,11 +134,11 @@ if __name__ == '__main__':
 
         # compute odometry in a typical way given the velocities of the robot
 
-        #last_time = current_time
+        #prev_time = current_time
         #rospy.spinOnce()
         current_time = rospy.Time.now()
 
-        dt = (current_time - last_time).to_sec() + (current_time - last_time).to_nsec()*1e-9
+        dt = (current_time - prev_time).to_sec() + (current_time - prev_time).to_nsec()*1e-9
         if dt>0:
             vx, vy, vth = calculation(steer,dt)
         delta_x = (vx * cos(th) - vy * sin(th)) * dt
@@ -182,5 +177,6 @@ if __name__ == '__main__':
         odom_pub.publish(odom)
         #print(odom.pose.pose)
 
-        last_time = current_time
+        prev_time = current_time
+
         r.sleep()

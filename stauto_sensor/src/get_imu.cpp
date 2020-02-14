@@ -86,6 +86,7 @@ class IMU_pub
   tf::Quaternion q;
 };
 
+int time1;
 int main(int argc, char **argv)
 {
 	ros::init(argc, argv, "get_imu");
@@ -153,6 +154,7 @@ int main(int argc, char **argv)
 				imu.header.stamp = ros::Time::now();
 				imu.header.frame_id = "imu_link";
 
+
 				// imu.orientation_covariance = {0, 0, 0, 0, 0, 0, 0, 0, 0};
 				// imu.angular_velocity_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025};
 				// imu.linear_acceleration_covariance = {0.0025, 0, 0, 0, 0.0025, 0, 0, 0, 0.0025};
@@ -217,9 +219,9 @@ int main(int argc, char **argv)
 				ay = atof(accel[1].c_str());
 				az = atof(accel[2].c_str());
 
-				imu.linear_acceleration.x = ax * 9.8;
-				imu.linear_acceleration.y = ay * 9.8;
-				imu.linear_acceleration.z = az * 9.8;
+				imu.linear_acceleration.x = ax * 9.81;
+				imu.linear_acceleration.y = ay * 9.81;
+				imu.linear_acceleration.z = az * 9.81;
 
 				eulervec[0] = imu.orientation.x;
 				eulervec[1] = imu.orientation.y;
@@ -265,7 +267,7 @@ int main(int argc, char **argv)
 				if (yaw <= -M_PI)
 					yaw = yaw + 2 * M_PI;
 
-        		yaw_degree= yaw;
+        yaw_degree= yaw;
 
 				//double tau = 1.018;
 				double tau = 1.000;
@@ -305,7 +307,7 @@ int main(int argc, char **argv)
 				std_msgs::Float32 yaw_value;
 				yaw_value.data = -theta;
 
-        		std_msgs::Float32 yaw_degree;
+        std_msgs::Float32 yaw_degree;
 				yaw_degree.data = yaw;
 
 				yaw_val.setRPY(0,0,-theta);
@@ -320,9 +322,8 @@ int main(int argc, char **argv)
 					IMU_pub.pub_imu_raw.publish(imu);
 					IMU_pub.pub_yaw.publish(yaw_imu);
 					IMU_pub.pub_yaw_value.publish(yaw_value);
-          			IMU_pub.pub_yaw_degree.publish(yaw_degree);
+          IMU_pub.pub_yaw_degree.publish(yaw_degree);
 					//IMU_pub.pub_quat(yaw_val);
-          			ROS_INFO("imu: ", imu);
 				}
 			}
 		};
@@ -376,7 +377,7 @@ IMU_pub::IMU_pub()
 	//sub_yaw_gps = nh_.subscribe<geometry_msgs::Twist>("dead_value", 1, &IMU_pub::valueCallback, this);
 	pub_yaw = nh_.advertise<geometry_msgs::Quaternion>("yaw_imu",1);
 	pub_yaw_value = nh_.advertise<std_msgs::Float32>("yaw_value",1);
-  	pub_yaw_degree = nh_.advertise<std_msgs::Float32>("yaw_degree",1);
+  pub_yaw_degree = nh_.advertise<std_msgs::Float32>("yaw_degree",1);
 	pub_imu_raw = nh_.advertise<sensor_msgs::Imu>("/imu/data",1);
 	sub_yaw_gps = nh_.subscribe<std_msgs::Float32>("yaw_gps", 1, &IMU_pub::yaw_gpsCallback, this);
 	sub_yaw_first = nh_.subscribe<std_msgs::Float32>("yaw_first", 1, &IMU_pub::yaw_firstCallback, this);

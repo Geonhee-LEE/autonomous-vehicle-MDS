@@ -1,0 +1,28 @@
+<launch>
+  <!-- Turtlesim Node-->
+  <!-- <node pkg="turtlesim" type="turtlesim_node" name="sim"/> -->
+
+  <!-- <node pkg="turtlesim" type="turtle_teleop_key" name="teleop" output="screen"/> -->
+  <!-- Axes -->
+  <!--<param name="scale_linear" value="2" type="double"/>-->
+  <!--<param name="scale_angular" value="2" type="double"/>-->
+
+  <node pkg="mapviz" type="mapviz" name="mapviz"> </node>
+  <node pkg="swri_transform_util" type="initialize_origin.py" name="initialize_origin" >
+    <param name="local_xy_frame" value="/map"/>
+    <param name="local_xy_origin" value="swri"/>
+    <rosparam param="local_xy_origins">
+      [{ name: swri,
+        latitude: 37.630845,
+        longitude: 127.076501,
+        altitude: 0,
+        heading: 30.0}]
+    </rosparam>
+  </node>
+
+  <node pkg="mapviz_robotmove" type="tf_broadcast" args="STauto_base" name="car_tf_broadcast" />
+
+  <node pkg="tf" type="static_transform_publisher" name="tf_pub_first" args="0 0 0 0 0 0 /map /odom 100"/>
+  <node pkg="tf" type="static_transform_publisher" name="tf_pub_second" args="-20 200 0 0 0 0 /odom /base_footprint 100"  />
+  <node pkg="stauto_sensor" type="get_imu" name="imu"/>
+</launch>

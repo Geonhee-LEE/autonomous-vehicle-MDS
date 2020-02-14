@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 
 import rospy
-from std_msgs.msg import Int32, Float32
+from std_msgs.msg import Int32, Float32 ,Float64
 
 from math import *
 
@@ -36,7 +36,7 @@ speed = 0
 gear = 0x00
 brake = 0
 steer = 0
-encoder = 0
+encoder = 0x00
 
 ########## CONVERTER ###############
 
@@ -88,7 +88,7 @@ def Encoder_Conv(enc0_b,enc1_b,enc2_b,enc3_b):
     if(encoder3[0] & 0x80000000) == 0:
         encoder = encoder0[0] + (2**8)*encoder1[0] + (2**16)*encoder2[0] + (2**24)*encoder3[0]
     else:
-        encoder = -2**32 +(encoder0 + (2**8)*encoder1[0] + (2**16)*encoder2[0] + (2**24)*(encoder3[0] & 0x7fffffff))
+        encoder = -2**32 + 1 +(encoder0[0] + (2**8)*encoder1[0] + (2**16)*encoder2[0] + (2**24)*(encoder3[0] & 0x7fffffff))
     
     print('encoder : ' , encoder)
     return encoder
@@ -126,7 +126,7 @@ def Parsing():
 
 if __name__ == '__main__':
     rospy.init_node('ERP42_status')
-    pub_encoder_erp42 = rospy.Publisher('ERP42_encoder', Float32, queue_size=10)
+    pub_encoder_erp42 = rospy.Publisher('ERP42_encoder', Float64, queue_size=10)
     pub_steer_erp42 = rospy.Publisher('ERP42_steer', Float32, queue_size=10)
     pub_speed_erp42 = rospy.Publisher('ERP42_speed', Float32, queue_size=10)
     pub_gear_erp42 = rospy.Publisher('ERP42_gear', Float32, queue_size=10)

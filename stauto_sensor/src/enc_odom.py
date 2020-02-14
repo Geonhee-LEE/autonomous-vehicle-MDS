@@ -22,7 +22,7 @@ def EncCallback(data):
 def SteerCallback(data):
     global steer
 
-    steer= (data.data-150) * 0.014 #150 for align
+    steer= (data.data) * 0.014 #150 for align
 
 def SpeedCallback(data):
     global erp_speed
@@ -102,7 +102,7 @@ def calculation(steer,dt,erp_speed_):
 if __name__ == '__main__':
     rospy.init_node('odometry_publisher')
 
-    rospy.Subscriber("ERP42_encoder",Float32,EncCallback) # 4 bytes
+    rospy.Subscriber("ERP42_encoder",Float64,EncCallback) # 4 bytes
     rospy.Subscriber("ERP42_steer",Float32,SteerCallback) # 2 bytes
     rospy.Subscriber("ERP42_speed",Float32,SpeedCallback) # 2 bytes
 
@@ -179,7 +179,6 @@ if __name__ == '__main__':
 
         # publish the message
         odom_pub.publish(odom)
-        #print(odom.pose.pose)
 
         last_time = current_time
         r.sleep()

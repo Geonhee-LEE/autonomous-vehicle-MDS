@@ -1,11 +1,11 @@
 <launch>
-    <!-- launch file arguments 
+    <!-- launch file arguments -->
     <arg name="debug_mode"  default="false" doc="show debug info (bool)"/> 
     <arg name="pwm_radian"  default="450.0" doc="non scaled factor pwm/radian (steering)"/> 
     <arg name="neutral_pt"  default="0.0"   doc="steering neutral point (degree)"/>
     <arg name="odom_topic"  default="/odom" doc="odom topic name"/>
     <arg name="time_out"    default="0.5"   doc="communication time out, unit: sec"/> 
-    <arg name="use_imu"     default="false" doc="use imu for ekf (bool)"/> -->
+    <arg name="use_imu"     default="false" doc="use imu for ekf (bool)"/> 
 
     <arg name="model" default="$(find robot_description)/urdf/platform_base_allink.urdf"/>
     <arg name="gui" default="false" />
@@ -29,6 +29,7 @@
         <param name="self_diagnose" value="false"/>
     </node> -->
 
+    <!-- ekf_localization (wheel and imu fusion)-->
     <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
         <rosparam command="load" file="$(find stauto_sensor)/launch/params/minicar_imu_ekf_params.yaml" />
         <remap from="/odometry/filtered" to="/odom" />

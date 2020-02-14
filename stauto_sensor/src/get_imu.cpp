@@ -376,7 +376,7 @@ IMU_pub::IMU_pub()
 	//sub_yaw_gps = nh_.subscribe<geometry_msgs::Twist>("dead_value", 1, &IMU_pub::valueCallback, this);
 	pub_yaw = nh_.advertise<geometry_msgs::Quaternion>("yaw_imu",1);
 	pub_yaw_value = nh_.advertise<std_msgs::Float32>("yaw_value",1);
-  pub_yaw_degree = nh_.advertise<std_msgs::Float32>("yaw_degree",1);
+  	pub_yaw_degree = nh_.advertise<std_msgs::Float32>("yaw_degree",1);
 	pub_imu_raw = nh_.advertise<sensor_msgs::Imu>("/imu/data",1);
 	sub_yaw_gps = nh_.subscribe<std_msgs::Float32>("yaw_gps", 1, &IMU_pub::yaw_gpsCallback, this);
 	sub_yaw_first = nh_.subscribe<std_msgs::Float32>("yaw_first", 1, &IMU_pub::yaw_firstCallback, this);

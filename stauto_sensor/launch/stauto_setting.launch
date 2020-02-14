@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+
+<launch>
+    
+    <!-- IMU data-->
+    <node pkg="stauto_sensor" type="get_imu" name="imu_data" output="screen"> </node>
+
+    <!-- ERP42 data-->
+    <node pkg="stauto_control" type="ERP42_to_PC" name="erp42_data" output="screen"> </node>
+
+    <!-- GPS data-->
+    <node pkg="stauto_sensor" type="get_gps_data" name="gps_data" output="screen"> </node>
+
+    <!-- Velodyne data-->
+    <include file="$(find velodyne)/velodyne_pointcloud/launch/VLP16_points.launch"> </include>
+
+    <!-- RVIZ -->
+    <node name="rviz" pkg="rviz" type="rviz"/>
+
+</launch>

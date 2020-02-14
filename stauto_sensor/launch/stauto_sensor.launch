@@ -3,6 +3,7 @@
 <launch>
 
     <arg name="rviz_file" default="$(find stauto_sensor)/rviz/sensor.rviz"/>
+    
     <!-- Getting IMU data-->
     <node pkg="stauto_sensor" type="enc_odom.py" name="enc_odom" output="screen"> </node>
 

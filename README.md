@@ -18,6 +18,11 @@
 ``rosrun  pangyo_control get_imu 
 ``
 
+### Getting ERP42 information (encoder, steer, speed, brake, gear)
+
+``rosrun  stauto_control ERP42_to_PC
+``
+
 ### GPS
 
 ``rosrun  pangyo_control gps_data_pangyo.py 

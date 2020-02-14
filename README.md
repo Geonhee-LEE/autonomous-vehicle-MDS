@@ -3,6 +3,10 @@
 
 ## Commands
 
+### sensor setting
+
+``roslaunch stauto_sensor stauto_setting.launch``
+
 ### USB cam
 
 ``roslaunch usb_cam usb_cam-test.launch ``
@@ -35,10 +39,13 @@
 
 ``rosbag record -a ``
 
-
 ## ROSBAG play
 
-``rosbag play -($rosbag name).bag --clock --topic /velodyne_points /imu/data ``
+``rosbag play -($rosbag name).bag --clock --topic -($topics name) ``
+
+## ODOM to trajectory
+
+`` roslaunch odom_to_trajectory create_trajectory.launch ``
 
 ## LEGO-LOAM
 ``roslaunch lego_loam run.launch ``

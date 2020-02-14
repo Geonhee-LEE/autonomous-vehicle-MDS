@@ -29,11 +29,31 @@
         <param name="self_diagnose" value="false"/>
     </node> -->
 
-    <!-- ekf_localization (wheel and imu fusion)-->
-    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+    <!-- <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
         <rosparam command="load" file="$(find stauto_sensor)/launch/params/minicar_imu_ekf_params.yaml" />
         <remap from="/odometry/filtered" to="/odom" />
-    </node>
+    </node> -->
 
+  <!-- <node pkg="robot_localization" type="navsat_transform_node" name="navsat_transform_node" respawn="true">
+
+    <param name="magnetic_declination_radians" value="0"/>
+
+    <param name="yaw_offset" value="0"/>
+    <param name="zero_altitude" value="true"/>
+
+    <param name="broadcast_utm_transform" value="false"/>
+    <param name="publish_filtered_pgs" value="false"/>
+
+    <param name="use_odometry_yaw" value="false"/>
+    <param name="wait_for_datum" value="false"/>
+
+    <remap from="/odometry/filtered" to="/odom" />
+
+  </node> -->
+
+  <!-- <node name="fix_translator" pkg="gps_common" type="utm_odometry_node">
+    <remap from="fix" to="/gps/fix" />
+
+  </node> -->
 
 </launch>

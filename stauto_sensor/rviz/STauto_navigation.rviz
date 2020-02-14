@@ -8,8 +8,11 @@ Panels:
         - /TF1
         - /TF1/Frames1
         - /TF1/Tree1
+        - /LaserScan1
+        - /Planner Plan1
         - /Global Map1/Costmap1
         - /Global Map1/Planner1
+        - /Local Map1
         - /Local Map1/Polygon1
         - /Local Map1/Costmap1
         - /Local Map1/Planner1
@@ -112,28 +115,28 @@ Visualization Manager:
       Frames:
         All Enabled: false
         GPS_link:
-          Value: true
+          Value: false
         base_foot_link:
-          Value: true
+          Value: false
         base_footprint:
           Value: true
         base_link:
           Value: true
         camera_link:
-          Value: true
+          Value: false
         imu_link:
-          Value: true
+          Value: false
         map:
           Value: true
         odom:
           Value: true
         velodyne:
-          Value: true
-      Marker Scale: 1
+          Value: false
+      Marker Scale: 15
       Name: TF
       Show Arrows: true
       Show Axes: true
-      Show Names: false
+      Show Names: true
       Tree:
         map:
           odom:
@@ -343,7 +346,7 @@ Visualization Manager:
   Global Options:
     Background Color: 48; 48; 48
     Default Light: true
-    Fixed Frame: map
+    Fixed Frame: odom
     Frame Rate: 30
   Name: root
   Tools:
@@ -359,7 +362,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -1.67079496
+      Angle: -3.17079687
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.0599999987
@@ -369,11 +372,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 78.7799606
+      Scale: 4.61180687
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
-      X: 33.993824
-      Y: 25.4180412
+      X: 69.5659561
+      Y: 19.8401413
     Saved: ~
 Window Geometry:
   Displays:

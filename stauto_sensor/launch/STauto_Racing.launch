@@ -25,7 +25,7 @@
     <!-- ********************** -->
     <!-- Boot up all components -->
     <!-- ********************** -->
-    <include file="$(find stauto_sensor)/launch/includes/STauto_Drivers.launch.xml">
+    <include file="$(find stauto_sensor)/launch/includes/HyphaROS_MiniCar_Drivers.launch.xml">
         <arg name="debug_mode" value="$(arg debug_mode)" />
         <arg name="pwm_radian" value="$(arg pwm_radian)"/>
         <arg name="neutral_pt" value="$(arg neutral_pt)"/>
@@ -33,7 +33,8 @@
         <arg name="time_out"   value="$(arg time_out)" />
     </include>
 
-    <!-- <include file="$(find pointcloud_to_laserscan)/launch/sample_node.launch"> </include> -->
+    <include file="$(find pointcloud_to_laserscan)/launch/sample_node.launch">
+    </include>
 
     <!-- ************ -->
     <!-- Localization -->
@@ -44,22 +45,22 @@
     </node>
 
     <!-- for odom only -->
-    <node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="35 25 0 3.1415 0 0 /map /odom 10" />
+    <!-- <node pkg="tf" type="static_transform_publisher" name="camera_init_to_map"  args="0 0 0 0 0 0 /map    /odom 10" /> -->
 
     <!-- Map server (for nav)-->
     <!-- <node name="map_server_nav" pkg="map_server" type="map_server" args="$(find hypharos_minicar)/map/map_nav.yaml"/> -->
 
     <!-- amcl -->
-    <!--<include file="$(find stauto_sensor)/launch/includes/amcl.launch.xml">
-        <arg name="init_x" value="$(arg init_x)"/>
+    <!-- <include file="$(find stauto_sensor)/launch/includes/amcl.launch.xml"> -->
+        <!-- <arg name="init_x" value="$(arg init_x)"/>
         <arg name="init_y" value="$(arg init_y)"/>
-        <arg name="init_a" value="$(arg init_a)"/> 
-    </include> --> 
+        <arg name="init_a" value="$(arg init_a)"/> -->
+    <!-- </include> -->
 
     <!-- rviz -->
     <group if="$(arg open_rviz)"> 
         <node pkg="rviz" type="rviz" name="rviz" required="true"
-            args="-d $(find stauto_sensor)/rviz/STauto_navigation.rviz"/>
+            args="-d $(find stauto_sensor)/rviz/turtlebot3_navigation.rviz"/>
     </group>
 
     <!-- ********************** -->

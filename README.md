@@ -4,7 +4,7 @@
 
 - The winner of 2020 국제 대학생 창작자동차 경진대회
 
-[![Video Label](http://img.youtube.com/vi/1I9IFRDpORE/0.jpg)pg)](https://youtu.be/1I9IFRDpORE?t=6250)
+[![Video Label](http://img.youtube.com/vi/1I9IFRDpORE/0.jpg)pg)](https://youtu.be/1I9IFRDpORE?t=6298)
 
 
 ## Commands
